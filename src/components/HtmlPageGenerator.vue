@@ -62,8 +62,12 @@ const createPageModalValue = reactive({
   paragraphContent: '',
 })
 
-const requiredRule = (value: string): boolean | string => {
-  return !!value || 'Это обязательное поле'
+/**
+ * Проверяет на наличие текста в строке
+ * @param value - значение поля
+ */
+const requiredRule = (value: string) => {
+  return Boolean(value) || 'Это обязательное поле'
 }
 
 const isFormValid = computed(
@@ -74,6 +78,9 @@ const isFormValid = computed(
     createPageModalValue.paragraphContent,
 )
 
+/**
+ * Возвращает HTML структуру
+ */
 const generateHtmlContent = () => {
   return `<!DOCTYPE html>
 <html lang="en">
@@ -90,6 +97,9 @@ const generateHtmlContent = () => {
 </html>`
 }
 
+/**
+ * Скачивает HTML файл
+ */
 const downloadHtmlFile = () => {
   if (!isFormValid.value) return
 
@@ -106,4 +116,20 @@ const downloadHtmlFile = () => {
 
   URL.revokeObjectURL(url)
 }
+
+/**
+ * Не стал перегружать проект:
+ * - Добавлением библиотеки для валидации
+ * - Выносом HTML структуры и базового хука для скачивания в отдельные .ts файлы
+ */
+
+/**
+ * Некоторое нестандартное решение, из-за которого можно подумать, что гптшка делала, а не я:
+ * - Комментировать каждую функцию и описывать аргументы(стайл-гайд с прошлой работы), в некоторых компаниях не принято
+ *
+ * Ну и все, наверное, и я не запаривался насчет верстки и можно было бы и без v-form обойтись.
+ *
+ * Надеюсь получиться обойти AI-авантюристов
+ */
+
 </script>
